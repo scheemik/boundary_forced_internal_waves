@@ -145,10 +145,10 @@ problem.add_equation("dx(u) + wz = 0")
 problem.add_equation("dt(b) - KA*(dx(dx(b)) + dz(bz))"
                     + "= -((N0*BP)**2)*w - (u*dx(b) + w*bz)")
 #   Horizontal momentum equation
-problem.add_equation("dt(u) -SL*NU*dx(dx(u)) - NU*dz(uz) + dx(p)"
+problem.add_equation("dt(u) - NU*dx(dx(u)) - NU*dz(uz) + dx(p) + SL*u"
                     + "= - (u*dx(u) + w*uz)")
 #   Vertical momentum equation
-problem.add_equation("dt(w) -SL*NU*dx(dx(w)) - NU*dz(wz) + dz(p) - b"
+problem.add_equation("dt(w) - NU*dx(dx(w)) - NU*dz(wz) + dz(p) - b + SL*w"
                     + "= - (u*dx(w) + w*wz)")
 # Required for solving differential equations in Chebyshev dimension
 problem.add_equation("bz - dz(b) = 0")
