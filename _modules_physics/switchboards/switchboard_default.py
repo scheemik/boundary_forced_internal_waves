@@ -17,7 +17,7 @@ n_z = 512                   # []
 # Dealias factor
 dealias = 3/2               # []
 # Stopping conditions for the simulation
-stop_n_periods = 1          # [] oscillation periods
+stop_n_periods = 10          # [] oscillation periods
 stop_wall_time = 60         # [minutes]
 stop_iteration = np.inf     # []
 stop_sim_time  = 3          # [s] to be calculated from stop_n_periods later
@@ -40,7 +40,7 @@ L_x = 0.75                   # [m]
 L_z = 0.5                   # [m]
 z_t = 0.0
 # Dimensions of displayed domain (should be leq simulated domain)
-L_x_dis = 0.5               # [m]
+L_x_dis = 0.75               # [m]
 L_z_dis = 0.5               # [m]
 # Display buffer (measured from top left corner)
 Dis_buff_x = 0.0            # [m]
