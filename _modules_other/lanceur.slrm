@@ -1,0 +1,62 @@
+#!/bin/bash
+#SBATCH --account=def-ngrisoua
+#SBATCH --mail-user=mschee@physics.utoronto.ca
+#SBATCH --mail-type=ALL
+#SBATCH --ntasks-per-node=40
+#SBATCH --nodes=1
+#SBATCH --time=0-00:20  # d-HH:MM
+
+# Optionally takes in arguments:
+#	$ sbatch lanceur.slrm -c <cores>
+#                         -n <name>
+#                         -x <n_x>
+#                         -z <n_z>
+
+while getopts c:n:x:z: option
+do
+	case "${option}"
+		in
+		c) CORES=${OPTARG};;
+		n) NAME=${OPTARG};;
+		x) N_X=${OPTARG};;
+		z) N_Z=${OPTARG};;
+	esac
+done
+
+# check to see if arguments were passed
+if [ -z "$CORES" ]
+then
+    CORES=40
+	echo "No number of cores specified, using CORES=${CORES}"
+fi
+if [ -z "$N_X" ]
+then
+    N_X=256
+	echo "No N_X value specified, using N_X=${N_X}"
+fi
+if [ -z "$N_Z" ]
+then
+    N_Z=64
+	echo "No N_Z value specified, using N_Z=${N_Z}"
+fi
+
+module purge
+module load python/3.6.5 #intelpython3
+module load intel/2018.2
+module load intelmpi/2018.2
+module load fftw-mpi/3.3.7
+module load hdf5-mpi/1.10.2
+
+export HDF5_MPI=ON
+export LDSHARED="icc -shared"
+export FFTW_PATH="$SCINET_FFTW_MPI_ROOT"
+export MPI_PATH="$I_MPI_ROOT"
+export MPLBACKEND=pdf
+
+source ${HOME}/Dedalus/Stack_test/venv/bin/activate
+
+sh run.sh -n $NAME -c $CORES -l 0 -v 1 -k 1 -x $N_X -z $N_Z
+
+deactivate
+
+exit
