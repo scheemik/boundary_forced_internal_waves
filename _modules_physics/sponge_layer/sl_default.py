@@ -25,7 +25,7 @@ z_sl_top        = z_sl_bot + sl_thickness   # [m]
 # Slope of sponge layer ramp
 slope           = 40.0                      # []
 # Maximum coefficient ramped to at end of sponge layer
-max_coeff       = 20                        # []
+max_coeff       = 1.7                        # []
 
 ###############################################################################
 # Sponge layer function
